@@ -1,0 +1,23 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <script>
+      var socket = new WebSocket('ws://localhost:8081/');
+      var val = 0;
+
+      socket.onmessage = function(data) {
+        console.log(data.data, val, data.data == val);
+      };
+
+      setInterval(function() {
+        if (socket.readyState === 1) {
+          val = Math.floor(Math.random() * 100000);
+          socket.send('set ' + val);
+        }
+      }, 100);
+    </script>
+
+
+  </body>
+</html>
